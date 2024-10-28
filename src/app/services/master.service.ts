@@ -26,10 +26,10 @@ export class MasterService {
 
   // update_project(obj: any)
   update_Project(id: number, obj: any){
-    return this.http.get(`${this.apiUrl2}updateProject/${id}`, obj)
+    return this.http.put(`${this.apiUrl2}updateProject/${id}`, obj)
   }
 
-  delete_Project(id: number, obj: any){
-    return this.http.get(`${this.apiUrl2}deleteProject/${id}`, obj)
+  delete_Project(id: string){
+    return this.http.delete(`${this.apiUrl2}deleteProject/${id}`)
   }
 }
