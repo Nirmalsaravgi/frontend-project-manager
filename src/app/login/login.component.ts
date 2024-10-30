@@ -20,17 +20,8 @@ export class LoginComponent {
   mastersrv = inject(MasterService);
   router = inject(Router);
 
-  // onSigin(){
-  //   this.mastersrv.login(this.userObj).subscribe((res: any) =>{
-  //     if(res.message == 'success'){
-  //       this.router.navigateByUrl('/projects');
-  //     } else{
-  //       alert(res.error)
-  //     }
-  //   })
-  // }
   onSigin() {
-    console.log("User Object being sent:", this.userObj);
+    // console.log("User Object being sent:", this.userObj);
     this.mastersrv.login(this.userObj).subscribe((res: any) => {
         if (res.message === 'success') {
             this.router.navigateByUrl('/projects');

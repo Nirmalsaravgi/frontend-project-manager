@@ -20,6 +20,10 @@ export class MasterService {
     return this.http.get(`${this.apiUrl2}getProjects/`)
   }
 
+  getUserProjects() {
+    return this.http.get(`${this.apiUrl2}getUserProjects/`, { withCredentials: true });
+  }
+
   create_Project(obj: any){
     return this.http.post(`${this.apiUrl2}createProject/`, obj)
   }

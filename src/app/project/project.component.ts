@@ -40,21 +40,35 @@ export class ProjectComponent implements OnInit {
   mastersrv = inject(MasterService);
   // router = inject();
 
-  ngOnInit(): void {
-    this.getAllProjects();
+//   ngOnInit(): void {
+//     this.getAllProjects();
+// }
+
+ngOnInit(): void {
+  this.getUserProjects();
 }
 
-getAllProjects(){
-  this.mastersrv.getProject().subscribe((res: any)=> {
-    this.projectList = res;
+// getAllProjects(){
+//   this.mastersrv.getProject().subscribe((res: any)=> {
+//     this.projectList = res;
+//     // console.log(this.projectList);
+//   })
+// }
+
+getUserProjects() {
+  this.mastersrv.getUserProjects().subscribe((res: any) => {
+    this.projectList = res.projects; // Assume response format is { projects: [...] }
     console.log(this.projectList);
-  })
+  }, (err: any) => {
+    console.error('Error fetching user projects:', err);
+  });
 }
 
 CreateProject(){
   this.mastersrv.create_Project(this.projectObj).subscribe((res: any)=> {
-    alert(res.message);
-    this.getAllProjects();
+    // alert(res.message);
+    // this.getAllProjects();
+    this.getUserProjects();
     this.closeModal();
   })
 }
@@ -85,7 +99,8 @@ closeModal() {
 UpdateProject(){
   if (this.projectObj._id) {
     this.mastersrv.update_Project(this.projectObj._id, this.projectObj).subscribe(() => {
-      this.getAllProjects();
+      // this.getAllProjects();
+      this.getUserProjects();
       this.closeModal();
     });
   }
@@ -100,7 +115,8 @@ UpdateProject(){
 DeleteProject() {
   if (this.projectObj._id) {
     this.mastersrv.delete_Project(this.projectObj._id).subscribe(() => {
-      this.getAllProjects();
+      // this.getAllProjects();
+      this.getUserProjects();
       this.closeModal();
     });
   } else {
