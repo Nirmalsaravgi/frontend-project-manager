@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MasterService } from '../services/master.service';
 import { FormsModule } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 interface Project {
   _id?: string;
@@ -38,6 +39,7 @@ export class ProjectComponent implements OnInit {
   isModal3Open = false;
 
   mastersrv = inject(MasterService);
+  cookieService = inject(CookieService);
   // router = inject();
 
 //   ngOnInit(): void {
@@ -55,17 +57,45 @@ ngOnInit(): void {
 //   })
 // }
 
+// getUserProjects() {
+//   const token = this.cookieService.get('token'); // Retrieve the token from cookies
+//   console.log('Retrieved token:', token);
+//   if (token) {
+//     this.mastersrv.getUserProjects().subscribe(
+//       (res: any) => {
+//         this.projectList = res.projects;
+//       },
+//       (err: any) => {
+//         console.error('Error fetching user projects:', err);
+//       }
+//     );
+//   } else {
+//     console.log("No token found. User might not be logged in.");
+//   }
+// }
+
 getUserProjects() {
-  this.mastersrv.getUserProjects().subscribe((res: any) => {
-    this.projectList = res.projects; // Assume response format is { projects: [...] }
-    console.log(this.projectList);
-  }, (err: any) => {
-    console.error('Error fetching user projects:', err);
-  });
+  const token = this.cookieService.get('token'); // Retrieve the token from cookies
+  // const allCookies: {} = this.cookieService.getAll();
+  // console.log('Retrieved token:', allCookies);
+  if (token) {
+    this.mastersrv.getUserProjects(token).subscribe(
+      (res: any) => {
+        this.projectList = res.projects;
+      },
+      (err: any) => {
+        console.error('Error fetching user projects:', err);
+      }
+    );
+  } else {
+    console.log("No token found. User might not be logged in.");
+  }
 }
 
+
 CreateProject(){
-  this.mastersrv.create_Project(this.projectObj).subscribe((res: any)=> {
+  const token = this.cookieService.get('token');
+  this.mastersrv.create_Project(this.projectObj, token).subscribe((res: any)=> {
     // alert(res.message);
     // this.getAllProjects();
     this.getUserProjects();
