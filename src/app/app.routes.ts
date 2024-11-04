@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ProjectComponent } from './project/project.component';
-// import { BoardComponent } from './board/board.component';
+import { BoardComponent } from './board/board.component';
 
 export const routes: Routes = [
     {
@@ -22,10 +22,10 @@ export const routes: Routes = [
                 path: 'projects',
                 component: ProjectComponent
             },
-            // {
-            //     path: 'board',
-            //     component: BoardComponent
-            // }
+            {
+                path: 'board',
+                component: BoardComponent
+            }
         ]
     }
 ];

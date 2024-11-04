@@ -103,8 +103,7 @@ export class SidebarComponent implements OnInit {
   }
 
   openBoard(){
-    // this.router.navigateByUrl('/board');
-    console.log("board");
+    this.router.navigateByUrl('/board');
   }
 
   // toggleModal() {
